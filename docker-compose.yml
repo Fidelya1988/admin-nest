@@ -8,25 +8,23 @@ services:
     ports:
       - '3000:3000'
     environment:
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_USERNAME: ${DATABASE_USER}
-      DATABASE_PASSWORD: secret
-      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_PORT: ${DB_PORT}
+      DATABASE_USERNAME: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASS}
+      DATABASE_NAME: ${DB_NAME}
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres:15-alpine
     restart: always
     environment:
-      POSTGRES_USER:  ${DATABASE_USER}
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER:  ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      - ${DB_PORT}:${DB_PORT}
+  
 
-volumes:
-  db-data:
+
 

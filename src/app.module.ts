@@ -13,13 +13,14 @@ import { AuthModule } from './auth/auth.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory(configService: ConfigService) {
+        console.log(17, configService.get<string>('DB_PASS'));
         return {
           type: 'postgres',
-          host: configService.get<string>('DATABASE_HOST') || 'localhost',
-          port: configService.get<number>('DATABASE_PORT') || 5432,
-          username: configService.get<string>('DATABASE_USER') || 'admin',
-          password: 'secret',
-          database: configService.get<string>('DATABASE_NAME') || 'admin_nest',
+          host: configService.get<string>('DB_HOST') || 'localhost',
+          port: configService.get<number>('DB_PORT') || 5432,
+          username: configService.get<string>('DB_USER') || 'admin',
+          password: configService.get<string>('DB_PASS') || 'admin',
+          database: configService.get<string>('DB_NAME') || 'admin',
           autoLoadEntities: true,
           synchronize: true, // Don't use this in production
         };
